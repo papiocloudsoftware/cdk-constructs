@@ -2,6 +2,7 @@
 !jest.config.js
 !.eslintrc.js
 !commitlint.config.js
+!webpack.config.js
 
 *.d.ts
 node_modules
