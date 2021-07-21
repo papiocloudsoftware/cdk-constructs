@@ -3,7 +3,9 @@ pipeline {
 
   stages {
     stage("Init") {
-      steps { sh "yarn" }
+      steps {
+        sh "yarn" 
+      }
     }
     stage("Build") {
       steps { sh "yarn build" }
@@ -17,8 +19,9 @@ pipeline {
         NPM_TOKEN = credentials("NPM_TOKEN")
       }
       steps {
-        sh "yarn release"
-        gitPush(followTags: true)
+        withGitHubToken {
+          sh 'export GITHUB_TOKEN="x-access-token:$GITHUB_TOKEN" && yarn release'
+        }
       }
     }
   }
