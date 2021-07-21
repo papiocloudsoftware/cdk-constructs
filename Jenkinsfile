@@ -21,6 +21,8 @@ pipeline {
       steps {
         withGitHubToken {
           sh 'export GITHUB_TOKEN="x-access-token:$GITHUB_TOKEN" && yarn release'
+          sh 'git status'
+          sh 'git log'
         }
       }
     }
