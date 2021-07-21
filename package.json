@@ -15,8 +15,6 @@
     "@aws-cdk/assert": "1.108.1",
     "@commitlint/cli": "^12.1.4",
     "@commitlint/config-conventional": "^12.1.4",
-    "@semantic-release/changelog": "^5.0.1",
-    "@semantic-release/git": "^9.0.0",
     "@types/aws-lambda": "^8.10.77",
     "@types/jest": "^26.0.10",
     "@types/node": "10.17.27",
@@ -72,12 +70,7 @@
     "plugins": [
       "@semantic-release/commit-analyzer",
       "@semantic-release/release-notes-generator",
-      "@semantic-release/changelog",
-      "@semantic-release/npm",
-      ["@semantic-release/git", {
-        "assets": ["package.json", "CHANGELOG.md"],
-        "message": "chore(release): ${nextRelease.version}\n\n${nextRelease.notes}"
-      }]
+      "@semantic-release/npm"
     ]
   },
   "publishConfig": {
