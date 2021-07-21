@@ -163,7 +163,7 @@ async function createEvent(event: CloudFormationCustomResourceCreateEvent): Prom
 /**
  * Handler for get/create of ACM certificate
  *
- * @param {CloudFormationCustomResourceEvent} event - lambda custom resource event
+ * @param {CloudFormationCustomResourceEvent} event - the cloud formation event payload
  * @returns {Promise<ResponseProperties>} the response
  */
 export async function handler(event: CloudFormationCustomResourceEvent): Promise<ResponseProperties> {

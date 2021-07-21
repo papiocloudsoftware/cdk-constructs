@@ -239,6 +239,28 @@
     "@aws-cdk/cx-api" "1.108.1"
     constructs "^3.3.69"
 
+"@aws-cdk/aws-sam@1.108.1":
+  version "1.108.1"
+  resolved "https://registry.yarnpkg.com/@aws-cdk/aws-sam/-/aws-sam-1.108.1.tgz#d05e56957c35a0ec5ac56c50d02cbaf8cdadf1b1"
+  integrity sha512-jaJy7XWFwYioFdJxG2g83OSvHEQzGss/KCi7AaXHI9Ock37pbfvrzV4z7KGjs2t5St9utl8xOmZ25f8bUQ058w==
+  dependencies:
+    "@aws-cdk/core" "1.108.1"
+    constructs "^3.3.69"
+
+"@aws-cdk/aws-secretsmanager@1.108.1":
+  version "1.108.1"
+  resolved "https://registry.yarnpkg.com/@aws-cdk/aws-secretsmanager/-/aws-secretsmanager-1.108.1.tgz#9b6af453da77cb660d4a3e069072aaab707d594f"
+  integrity sha512-O6qfCFYgppuoXa+YN7DdFEDRZ+Y75tLJVsI2/20uy6ZARhjTbSFx4Kp1wvKZZrLESI4CclI2Cs0wgN+hNXgXoA==
+  dependencies:
+    "@aws-cdk/aws-ec2" "1.108.1"
+    "@aws-cdk/aws-iam" "1.108.1"
+    "@aws-cdk/aws-kms" "1.108.1"
+    "@aws-cdk/aws-lambda" "1.108.1"
+    "@aws-cdk/aws-sam" "1.108.1"
+    "@aws-cdk/core" "1.108.1"
+    "@aws-cdk/cx-api" "1.108.1"
+    constructs "^3.3.69"
+
 "@aws-cdk/aws-signer@1.108.1":
   version "1.108.1"
   resolved "https://registry.yarnpkg.com/@aws-cdk/aws-signer/-/aws-signer-1.108.1.tgz#778b7ab5a67e4d7b5f4c527ced9e0fd5d7d08be7"
@@ -1272,16 +1294,6 @@
   dependencies:
     "@octokit/openapi-types" "^7.3.2"
 
-"@semantic-release/changelog@^5.0.1":
-  version "5.0.1"
-  resolved "https://registry.yarnpkg.com/@semantic-release/changelog/-/changelog-5.0.1.tgz#50a84b63e5d391b7debfe021421589fa2bcdafe4"
-  integrity sha512-unvqHo5jk4dvAf2nZ3aw4imrlwQ2I50eVVvq9D47Qc3R+keNqepx1vDYwkjF8guFXnOYaYcR28yrZWno1hFbiw==
-  dependencies:
-    "@semantic-release/error" "^2.1.0"
-    aggregate-error "^3.0.0"
-    fs-extra "^9.0.0"
-    lodash "^4.17.4"
-
 "@semantic-release/commit-analyzer@^8.0.0":
   version "8.0.1"
   resolved "https://registry.yarnpkg.com/@semantic-release/commit-analyzer/-/commit-analyzer-8.0.1.tgz#5d2a37cd5a3312da0e3ac05b1ca348bf60b90bca"
@@ -1489,15 +1501,15 @@
   resolved "https://registry.yarnpkg.com/@types/node/-/node-15.12.2.tgz#1f2b42c4be7156ff4a6f914b2fb03d05fa84e38d"
   integrity sha512-zjQ69G564OCIWIOHSXyQEEDpdpGl+G348RAKY0XXy9Z5kU9Vzv1GMNnkar/ZJ8dzXB3COzD9Mo9NtRZ4xfgUww==
 
-"@types/node@10.17.27":
-  version "10.17.27"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-10.17.27.tgz#391cb391c75646c8ad2a7b6ed3bbcee52d1bdf19"
-  integrity sha512-J0oqm9ZfAXaPdwNXMMgAhylw5fhmXkToJd06vuDUSAgEDZ/n/69/69UmyBZbc+zT34UnShuDSBqvim3SPnozJg==
-
 "@types/node@^10.17.60":
   version "10.17.60"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-10.17.60.tgz#35f3d6213daed95da7f0f73e75bcc6980e90597b"
   integrity sha512-F0KIgDJfy2nA3zMLmWGKxcH2ZVEtCZXHHdOQs2gSaQ27+lNeEfGxzkIw90aXswATX7AZ33tahPbzy6KAfUreVw==
+
+"@types/node@^12.20.16":
+  version "12.20.16"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-12.20.16.tgz#1acf34f6456208f495dac0434dd540488d17f991"
+  integrity sha512-6CLxw83vQf6DKqXxMPwl8qpF8I7THFZuIwLt4TnNsumxkp1VsRZWT8txQxncT/Rl2UojTsFzWgDG4FRMwafrlA==
 
 "@types/normalize-package-data@^2.4.0":
   version "2.4.0"
