@@ -1,6 +1,6 @@
 {
   "name": "@papio/cdk-constructs",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "scripts": {
@@ -67,15 +67,23 @@
     }
   },
   "release": {
-    "branches": ["initial-release"],
+    "branches": [
+      "initial-release"
+    ],
     "plugins": [
       "@semantic-release/commit-analyzer",
       "@semantic-release/release-notes-generator",
       "@semantic-release/npm",
-      ["@semantic-release/git", {
-        "assets": ["docs", "package.json"],
-        "message": "chore(release): ${nextRelease.version}\n\n${nextRelease.notes}"
-      }]
+      [
+        "@semantic-release/git",
+        {
+          "assets": [
+            "docs",
+            "package.json"
+          ],
+          "message": "chore(release): ${nextRelease.version}\n\n${nextRelease.notes}"
+        }
+      ]
     ]
   },
   "publishConfig": {
