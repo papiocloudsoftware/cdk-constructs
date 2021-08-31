@@ -18,7 +18,7 @@ export async function getHostedZone(domainName: string, route53 = new AWS.Route5
   while (!hostedZone && startIdx < domainParts.length - 1) {
     const zoneDomain = domainParts.slice(startIdx, domainParts.length).join(".");
     const hostedZones = await route53.listHostedZonesByName({ DNSName: zoneDomain }).promise();
-    if (hostedZones.HostedZones && hostedZones.HostedZones.length > 0) {
+    if (hostedZones.HostedZones?.length > 0 && hostedZones.HostedZones[0].Name === `${zoneDomain}.`) {
       hostedZone = hostedZones.HostedZones[0];
     } else {
       startIdx += 1;
