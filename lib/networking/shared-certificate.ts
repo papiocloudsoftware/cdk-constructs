@@ -1,14 +1,14 @@
 import { ICertificate } from "@aws-cdk/aws-certificatemanager";
+import { Metric, MetricOptions } from "@aws-cdk/aws-cloudwatch";
 import { Effect, PolicyStatement } from "@aws-cdk/aws-iam";
 import { Code, Runtime, SingletonFunction } from "@aws-cdk/aws-lambda";
 import { Construct, CustomResource, Duration, Stack } from "@aws-cdk/core";
+import { RemovalPolicy } from "@aws-cdk/core/lib/removal-policy";
 import { ResourceEnvironment } from "@aws-cdk/core/lib/resource";
 import { Provider } from "@aws-cdk/custom-resources";
-import { Metric, MetricOptions } from "@aws-cdk/aws-cloudwatch";
 import * as path from "path";
 
 import { singletonResource } from "../core";
-import { RemovalPolicy } from "@aws-cdk/core/lib/removal-policy";
 
 /**
  * Props required to create {SharedCertificate}
