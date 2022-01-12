@@ -7,6 +7,7 @@ import { Provider } from "@aws-cdk/custom-resources";
 import * as path from "path";
 
 import { singletonResource } from "../core";
+import {RemovalPolicy} from "@aws-cdk/core/lib/removal-policy";
 
 /**
  * Props to create a {HostedZoneLookup}
@@ -82,5 +83,9 @@ export class HostedZoneLookup extends Construct implements IHostedZone {
 
   get hostedZoneNameServers(): string[] | undefined {
     return this.hostedZone.hostedZoneNameServers;
+  }
+
+  applyRemovalPolicy(policy: RemovalPolicy): void {
+    this.hostedZone.applyRemovalPolicy(policy);
   }
 }

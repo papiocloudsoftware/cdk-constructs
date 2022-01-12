@@ -4,9 +4,11 @@ import { Code, Runtime, SingletonFunction } from "@aws-cdk/aws-lambda";
 import { Construct, CustomResource, Duration, Stack } from "@aws-cdk/core";
 import { ResourceEnvironment } from "@aws-cdk/core/lib/resource";
 import { Provider } from "@aws-cdk/custom-resources";
+import { Metric, MetricOptions } from "@aws-cdk/aws-cloudwatch";
 import * as path from "path";
 
 import { singletonResource } from "../core";
+import { RemovalPolicy } from "@aws-cdk/core/lib/removal-policy";
 
 /**
  * Props required to create {SharedCertificate}
@@ -74,5 +76,13 @@ export class SharedCertificate extends Construct implements ICertificate {
 
   get certificateArn(): string {
     return this.certificate.ref;
+  }
+
+  applyRemovalPolicy(policy: RemovalPolicy): void {
+    this.certificate.applyRemovalPolicy(policy);
+  }
+
+  metricDaysToExpiry(props?: MetricOptions): Metric {
+    throw Error("Unsupported operation");
   }
 }
