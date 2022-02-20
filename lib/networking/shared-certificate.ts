@@ -27,43 +27,39 @@ export class SharedCertificate extends Construct implements ICertificate {
   constructor(scope: Construct, id: string, props: SharedCertificateProps) {
     super(scope, id);
     // Certificate should be a singleton on the stack
-    this.certificate = singletonResource(
-      this,
-      `Certificate_${props.certificateDomain}`,
-      (scope: Construct, resourceId: string) => {
-        const certificateFunction = new SingletonFunction(this, "Function", {
-          code: Code.fromAsset(path.resolve(__dirname, "..", "lambdas")),
-          handler: "get-or-create-cert.handler",
-          runtime: Runtime.NODEJS_12_X,
-          timeout: Duration.minutes(10),
-          uuid: "papio-get-or-create-cert-function",
-          initialPolicy: [
-            new PolicyStatement({
-              effect: Effect.ALLOW,
-              actions: [
-                "acm:DeleteCertificate",
-                "acm:DescribeCertificate",
-                "acm:RequestCertificate",
-                "acm:ListCertificates",
-                "route53:ListHostedZonesByName",
-                "route53:ChangeResourceRecordSets"
-              ],
-              resources: ["*"]
-            })
-          ]
-        });
+    this.certificate = singletonResource(this, props.certificateDomain, (scope: Construct, resourceId: string) => {
+      const certificateFunction = new SingletonFunction(this, "Function", {
+        code: Code.fromAsset(path.resolve(__dirname, "..", "lambdas")),
+        handler: "get-or-create-cert.handler",
+        runtime: Runtime.NODEJS_12_X,
+        timeout: Duration.minutes(10),
+        uuid: "papio-get-or-create-cert-function",
+        initialPolicy: [
+          new PolicyStatement({
+            effect: Effect.ALLOW,
+            actions: [
+              "acm:DeleteCertificate",
+              "acm:DescribeCertificate",
+              "acm:RequestCertificate",
+              "acm:ListCertificates",
+              "route53:ListHostedZonesByName",
+              "route53:ChangeResourceRecordSets"
+            ],
+            resources: ["*"]
+          })
+        ]
+      });
 
-        const provider = new Provider(this, "Provider", {
-          onEventHandler: certificateFunction
-        });
+      const provider = new Provider(this, "Provider", {
+        onEventHandler: certificateFunction
+      });
 
-        return new CustomResource(scope, resourceId, {
-          resourceType: "Custom::GetOrCreateCertificate",
-          serviceToken: provider.serviceToken,
-          properties: { CertificateDomain: props.certificateDomain }
-        });
-      }
-    );
+      return new CustomResource(scope, resourceId, {
+        resourceType: "Custom::GetOrCreateCertificate",
+        serviceToken: provider.serviceToken,
+        properties: { CertificateDomain: props.certificateDomain }
+      });
+    });
   }
 
   get stack(): Stack {

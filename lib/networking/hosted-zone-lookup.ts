@@ -24,41 +24,37 @@ export class HostedZoneLookup extends Construct implements IHostedZone {
 
   constructor(scope: Construct, id: string, props: HostedZoneLookupProps) {
     super(scope, id);
-    this.hostedZone = singletonResource(
-      this,
-      `${props.domainName.replace(".", "_")}`,
-      (scope: Construct, resourceId: string) => {
-        const certificateFunction = new SingletonFunction(this, "Function", {
-          code: Code.fromAsset(path.resolve(__dirname, "..", "lambdas")),
-          handler: "lookup-hosted-zone.handler",
-          runtime: Runtime.NODEJS_12_X,
-          timeout: Duration.minutes(10),
-          uuid: "papio-lookup-hosted-zone-function",
-          initialPolicy: [
-            new PolicyStatement({
-              effect: Effect.ALLOW,
-              actions: ["route53:ListHostedZonesByName"],
-              resources: ["*"]
-            })
-          ]
-        });
+    this.hostedZone = singletonResource(this, props.domainName, (scope: Construct, resourceId: string) => {
+      const certificateFunction = new SingletonFunction(this, "Function", {
+        code: Code.fromAsset(path.resolve(__dirname, "..", "lambdas")),
+        handler: "lookup-hosted-zone.handler",
+        runtime: Runtime.NODEJS_12_X,
+        timeout: Duration.minutes(10),
+        uuid: "papio-lookup-hosted-zone-function",
+        initialPolicy: [
+          new PolicyStatement({
+            effect: Effect.ALLOW,
+            actions: ["route53:ListHostedZonesByName"],
+            resources: ["*"]
+          })
+        ]
+      });
 
-        const provider = new Provider(this, "Provider", {
-          onEventHandler: certificateFunction
-        });
+      const provider = new Provider(this, "Provider", {
+        onEventHandler: certificateFunction
+      });
 
-        const resource = new CustomResource(scope, resourceId, {
-          resourceType: "Custom::LookupHostedZone",
-          serviceToken: provider.serviceToken,
-          properties: { DomainName: props.domainName }
-        });
+      const resource = new CustomResource(scope, resourceId, {
+        resourceType: "Custom::LookupHostedZone",
+        serviceToken: provider.serviceToken,
+        properties: { DomainName: props.domainName }
+      });
 
-        return PublicHostedZone.fromHostedZoneAttributes(scope, `HostedZone_${resourceId}`, {
-          hostedZoneId: resource.ref,
-          zoneName: props.domainName
-        });
-      }
-    );
+      return PublicHostedZone.fromHostedZoneAttributes(scope, `HostedZone_${resourceId}`, {
+        hostedZoneId: resource.ref,
+        zoneName: props.domainName
+      });
+    });
   }
 
   get stack(): Stack {

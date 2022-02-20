@@ -1,4 +1,5 @@
-import { Construct, IConstruct, Stack, Token } from "@aws-cdk/core";
+import { Construct, IConstruct, Stack, Token, Tokenization } from "@aws-cdk/core";
+import { CLOUDFORMATION_TOKEN_RESOLVER } from "@aws-cdk/core/lib/private/cloudformation-lang";
 import * as crypto from "crypto";
 
 /**
@@ -16,13 +17,14 @@ export function singletonResource<T extends IConstruct>(
   factoryMethod: (scope: Construct, id: string) => T
 ): T {
   const stack = Stack.of(scope);
-  let resourceId: string;
-  if (Token.isUnresolved(uniqueId)) {
-    resourceId = crypto.createHash("sha256").update(uniqueId).digest().toString("hex").substr(0, 8);
-  } else {
-    resourceId = uniqueId.replace(/[.*]/, "_");
-  }
-  resourceId = `Singleton_${resourceId}`;
+  const resolvedUniqueId = Tokenization.resolve(uniqueId, { scope, resolver: CLOUDFORMATION_TOKEN_RESOLVER });
+  const hash = crypto
+    .createHash("sha256")
+    .update(JSON.stringify(resolvedUniqueId))
+    .digest()
+    .toString("hex")
+    .substr(0, 8);
+  const resourceId = `${scope.constructor.name}Singleton_${hash}`;
 
   let construct: T | undefined = stack.node.tryFindChild(resourceId) as T;
   if (!construct) {
