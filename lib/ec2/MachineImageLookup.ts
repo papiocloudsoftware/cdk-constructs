@@ -34,7 +34,7 @@ export class MachineImageLookup implements IMachineImage {
     const lookupFunction = new SingletonFunction(scope, `MachineImageLookupFunction_${id}`, {
       code: Code.fromAsset(path.resolve(__dirname, "..", "lambdas")),
       handler: "machine-image-lookup.handler",
-      runtime: Runtime.NODEJS_12_X,
+      runtime: Runtime.NODEJS_16_X,
       timeout: Duration.minutes(10),
       uuid: "papio-machine-image-lookup-function",
       initialPolicy: [

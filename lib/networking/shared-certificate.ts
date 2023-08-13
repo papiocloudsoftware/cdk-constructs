@@ -31,7 +31,7 @@ export class SharedCertificate extends Construct implements ICertificate {
       const certificateFunction = new SingletonFunction(this, "Function", {
         code: Code.fromAsset(path.resolve(__dirname, "..", "lambdas")),
         handler: "get-or-create-cert.handler",
-        runtime: Runtime.NODEJS_12_X,
+        runtime: Runtime.NODEJS_16_X,
         timeout: Duration.minutes(10),
         uuid: "papio-get-or-create-cert-function",
         initialPolicy: [

@@ -19,7 +19,7 @@ export class SesDomainVerification extends Construct {
     super(scope, id);
 
     const runTaskFunction = new Function(this, "VerifySesDomainHandler", {
-      runtime: Runtime.NODEJS_12_X,
+      runtime: Runtime.NODEJS_16_X,
       code: Code.fromAsset(path.resolve(__dirname, "..", "lambdas")),
       handler: "verify-ses-domain.handle",
       timeout: Duration.minutes(15),

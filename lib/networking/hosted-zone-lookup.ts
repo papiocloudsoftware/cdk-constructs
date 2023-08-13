@@ -28,7 +28,7 @@ export class HostedZoneLookup extends Construct implements IHostedZone {
       const certificateFunction = new SingletonFunction(this, "Function", {
         code: Code.fromAsset(path.resolve(__dirname, "..", "lambdas")),
         handler: "lookup-hosted-zone.handler",
-        runtime: Runtime.NODEJS_12_X,
+        runtime: Runtime.NODEJS_16_X,
         timeout: Duration.minutes(10),
         uuid: "papio-lookup-hosted-zone-function",
         initialPolicy: [

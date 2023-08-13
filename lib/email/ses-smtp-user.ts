@@ -41,7 +41,7 @@ export class SesSmtpUser extends Construct {
 
     const userSetupFunction = new SingletonFunction(this, "SetupSmtpUserHandler", {
       uuid: "papiocloud-smtp-user-setup",
-      runtime: Runtime.NODEJS_12_X,
+      runtime: Runtime.NODEJS_16_X,
       code: Code.fromAsset(path.resolve(__dirname, "..", "lambdas")),
       handler: "setup-ses-user.handle",
       timeout: Duration.minutes(15),
